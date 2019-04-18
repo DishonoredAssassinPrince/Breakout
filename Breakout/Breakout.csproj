@@ -46,14 +46,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AdditionalEntities\EndGameArgs.cs" />
+    <Compile Include="AdditionalEntities\EndGameEventHandler.cs" />
+    <Compile Include="AdditionalEntities\NativeMethods.cs" />
+    <Compile Include="AdditionalEntities\TargetBlockArgs.cs" />
+    <Compile Include="AdditionalEntities\TargetBlockEventHandler.cs" />
+    <Compile Include="AdditionalEntities\TargetBlocksCollection.cs" />
+    <Compile Include="Controllers\Contracts\IGameplayController.cs" />
+    <Compile Include="Controllers\GameplayController.cs" />
+    <Compile Include="GameplayForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GameplayForm.Designer.cs">
+      <DependentUpon>GameplayForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Models\Ball.cs" />
+    <Compile Include="Models\BaseBlock.cs" />
+    <Compile Include="Models\Contracts\IBall.cs" />
+    <Compile Include="Models\Contracts\IBlock.cs" />
+    <Compile Include="Models\Contracts\IMessageHandler.cs" />
+    <Compile Include="Models\Contracts\IPlayerPaddle.cs" />
+    <Compile Include="Models\MessageHandler.cs" />
+    <Compile Include="Models\PlayerPaddle.cs" />
+    <Compile Include="Models\TargetBlock.cs" />
+    <Compile Include="StartGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartGameForm.Designer.cs">
+      <DependentUpon>StartGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GameplayForm.resx">
+      <DependentUpon>GameplayForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +89,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StartGameForm.resx">
+      <DependentUpon>StartGameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -76,5 +105,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
