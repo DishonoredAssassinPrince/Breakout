@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameplayForm));
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBoxPaddle = new System.Windows.Forms.PictureBox();
             this.pictureBoxBall = new System.Windows.Forms.PictureBox();
@@ -48,10 +49,12 @@
             // 
             // pictureBoxBall
             // 
-            this.pictureBoxBall.BackColor = System.Drawing.Color.DarkRed;
+            this.pictureBoxBall.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxBall.Image = global::Breakout.Properties.Resources.Ball;
+            this.pictureBoxBall.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxBall.InitialImage")));
             this.pictureBoxBall.Location = new System.Drawing.Point(1014, 615);
             this.pictureBoxBall.Name = "pictureBoxBall";
-            this.pictureBoxBall.Size = new System.Drawing.Size(100, 50);
+            this.pictureBoxBall.Size = new System.Drawing.Size(25, 25);
             this.pictureBoxBall.TabIndex = 1;
             this.pictureBoxBall.TabStop = false;
             // 

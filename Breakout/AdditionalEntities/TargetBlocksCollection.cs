@@ -9,7 +9,7 @@
     {
         public TargetBlocksCollection(IList<Control> targetBlockViews)
         {
-            this.TargetBlockViews = targetBlockViews;            
+            this.TargetBlockViews = targetBlockViews;
         }
 
         public IList<Control> TargetBlockViews;
@@ -23,17 +23,17 @@
 
             this[id] = null;
             this.TargetBlockViews[id].Dispose();
-            this.TargetBlockViews[id]= null;
+            this.TargetBlockViews[id] = null;
 
             int countOfBlocks = CountBlocks();
 
             //If there are no more blocks -> Stop game
-            if(countOfBlocks == 0)
+            if (countOfBlocks == 0)
             {
                 EndGame(this, new EndGameArgs(true));
             }
-            //If the destroyed block is a multiple of 5, increase speed of ball
-            else if(countOfBlocks % 5 == 0)
+            //////if the destroyed block is a multiple of 5, increase speed of ball
+            else if (countOfBlocks % 5 == 0)
             {
                 BallSpeedToIncrease(this, new EventArgs());
             }

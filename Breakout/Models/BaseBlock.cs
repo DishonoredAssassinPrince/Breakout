@@ -28,7 +28,7 @@
             this.Y = y;
             this.Width = width;
             this.Height = height;
-        }
+        }        
 
         /// <summary>
         /// X position of block.

@@ -16,20 +16,26 @@
         private const int StartVelocityX = 2; //2
         private const int StartVelocityY = 2; //2
 
-        private int VelocityXIncrementer = 2;
+        private int VelocityXIncrementer = 1;
         private int VelocityYIncrementer = 1;
 
         public Ball(int x, int y, int screenWidth, int screenHeight) : base(x, y, DefaultWidth, DefaultHeight, screenWidth, screenHeight)
         {
-            this.VelocityX = StartVelocityX;
-            this.VelocityY = StartVelocityY;
+            this.BaseVelocityX = StartVelocityX;
+            this.BaseVelocityY = StartVelocityY;
+
+            this.CurrentVelocityX = this.BaseVelocityX;
+            this.CurrentVelocityY = this.BaseVelocityY;
         }
 
-        private int VelocityX { get; set; }
-        private int VelocityY { get; set; }
+        private int BaseVelocityX { get; set; }
+        private int BaseVelocityY { get; set; }
 
-        private int NextX => this.X + this.VelocityX;
-        private int NextY => this.Y + this.VelocityY;
+        private int CurrentVelocityX { get; set; }
+        private int CurrentVelocityY { get; set; }
+
+        private int NextX => this.X + this.CurrentVelocityX;
+        private int NextY => this.Y + this.CurrentVelocityY;
 
         public event EndGameEventHandler EndGame;
 
@@ -43,16 +49,16 @@
         /// </summary>
         public void MoveBall()
         {
-            this.X += VelocityX;
+            this.X += CurrentVelocityX;
 
             if(this.X + this.Width >= this.ScreenWidth || this.X <= 0)
             {
                 ChangeDirectionX();
             }
 
-            this.Y += VelocityY;
+            this.Y += CurrentVelocityY;
 
-            if (this.Y + this.Height >= this.ScreenHeight || this.Y <= 0)
+            if (this.Y <= 0)
             {
                 ChangeDirectionY();
             }
@@ -75,17 +81,33 @@
                 ((this.NextY >= block.Y && this.NextY + this.Height <= block.Y + block.Height)
                 || (this.NextY + this.Height >= block.Y && this.NextY <= block.Y + block.Height)))
             {
+                //Apply velocity change depending on point of collision with PlayerPaddle
+                if(block is PlayerPaddle)
+                {
+                    int ballDistanceFromPaddleCenter = Math.Abs(block.Width / 2 - (this.X - block.X));
+                    int centerDistanceFromBall = block.Width / 2 - ballDistanceFromPaddleCenter;
+                    int directionX = this.X < block.X + block.Width / 2 ? -1 : 1;
+                    int velocityX = ((ballDistanceFromPaddleCenter) / 10 + BaseVelocityX) / 2;
+                    int velocityY = ((centerDistanceFromBall) / 10  + BaseVelocityY) / 2;
+                    this.CurrentVelocityX = velocityX * directionX;
+                    this.CurrentVelocityY = velocityY;
+                    ChangeDirectionY();
+                    return true;
+                }
                 //Check if in its current position the ball is below/above the block and change horizontal direction
-                if(this.X >= block.X && this.X <= block.X + block.Width)
+                 if(this.X >= block.X && this.X <= block.X + block.Width)
                 {
                     ChangeDirectionY();
+                    return true;
                 }
                 //Check if in its current position the ball is beside the block and change vertical direction
-                else if (this.Y >= block.Y && this.Y <= block.Y + block.Height)
+                 if (this.Y >= block.Y && this.Y <= block.Y + block.Height)
                 {
                     ChangeDirectionX();
+                    return true;
                 }
-                return true;
+
+                return false;
             }
             return false;
         }
@@ -95,20 +117,20 @@
         /// </summary>
         public void IncreaseVelocity()
         {
-            this.VelocityX += VelocityXIncrementer;
-            this.VelocityY += VelocityYIncrementer;
+            this.BaseVelocityX++;
+            this.BaseVelocityY++;
         }
 
 
         private void ChangeDirectionX()
         {
-            this.VelocityX = -this.VelocityX;
+            this.CurrentVelocityX = -this.CurrentVelocityX;
             this.VelocityXIncrementer = -this.VelocityXIncrementer;
         }
 
         private void ChangeDirectionY()
         {
-            this.VelocityY = -this.VelocityY;
+            this.CurrentVelocityY = -this.CurrentVelocityY;
             this.VelocityYIncrementer = -this.VelocityYIncrementer;
         }
     }
