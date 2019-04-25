@@ -14,28 +14,34 @@
         private const string WinMessage = "All blocks destroyed";
         private const string LossStatus = "LOSS";
         private const string LossMessage = "Ball went out of bounds";
+        private const string ScoreText = "Score: ";
 
         private Control statusView;
         private Control messageView;
+        private Control scoreView;
 
         private string status;
         private string message;
+        private int score;
 
         private event EventHandler StatusChanged;
         private event EventHandler MessageChanged;
+        private event EventHandler ScoreChanged;
 
         /// <summary>
         /// Base constructor for MessageHandler class.
         /// </summary>
         /// <param name="statusView">View for game status.</param>
         /// <param name="messageView">View for displayed message.</param>
-        public MessageHandler(Control statusView, Control messageView)
+        public MessageHandler(Control statusView, Control messageView, Control scoreView)
         {
             this.statusView = statusView;
             this.messageView = messageView;
+            this.scoreView = scoreView;
 
             this.StatusChanged += OnStatusChanged;
             this.MessageChanged += OnMessageChanged;
+            this.ScoreChanged += OnScoreChanged;
         }
 
         private void OnStatusChanged(object sender, EventArgs e)
@@ -48,6 +54,12 @@
         {
             this.messageView.Text = message;
             this.messageView.Visible = true;
+        }
+
+        private void OnScoreChanged(object sender, EventArgs e)
+        {
+            this.scoreView.Text = ScoreText + score;
+            this.scoreView.Visible = true;
         }
 
         /// <summary>
@@ -83,11 +95,29 @@
         }
 
         /// <summary>
+        /// Defines end game score.
+        /// </summary>
+        public int Score
+        {
+            get
+            {
+                return this.score;
+            }
+            private set
+            {
+                this.score = value;
+                this.ScoreChanged(this, new EventArgs());
+            }
+        }
+
+
+        /// <summary>
         /// Changes end game status and triggers events.
         /// </summary>
         public void OnEndGame(object sender, EndGameArgs endGameArgs)
         {
             bool status = endGameArgs.Status;
+            int score = endGameArgs.Score;
 
             //true -> win
             //false -> loss
@@ -101,6 +131,8 @@
                 this.Status = LossStatus;
                 this.Message = LossMessage;
             }
+
+            this.Score = score;
         }
     }
 }

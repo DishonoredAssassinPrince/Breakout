@@ -47,7 +47,8 @@
         /// <summary>
         /// Changes ball position according to velocity values.
         /// </summary>
-        public void MoveBall()
+        /// <param name="targetBlocksCollection">Needed for calculating score should game end.</param>
+        public void MoveBall(TargetBlocksCollection targetBlocksCollection)
         {
             this.X += CurrentVelocityX;
 
@@ -65,7 +66,7 @@
 
             if(this.Y + this.Width >= ScreenHeight)
             {
-                EndGameArgs endGameArgs = new EndGameArgs(false);
+                EndGameArgs endGameArgs = new EndGameArgs(false, targetBlocksCollection.DestroyedBlocks);
                 this.EndGame(this, endGameArgs);
             }
         }

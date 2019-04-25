@@ -31,7 +31,7 @@
             TargetBlocksCollection targetBlocksCollection = GenerateTargetBlocks();
 
             SetMessageLocations();
-            MessageHandler messageHandler = new MessageHandler(this.labelStatus, this.labelMessage);
+            MessageHandler messageHandler = new MessageHandler(this.labelStatus, this.labelMessage, this.labelScore);
 
             this.gameplayController = new GameplayController(this, paddleModel, pictureBoxPaddle, ballModel, 
                 this.pictureBoxBall, targetBlocksCollection, messageHandler);

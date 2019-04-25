@@ -34,6 +34,7 @@
             this.pictureBoxBall = new System.Windows.Forms.PictureBox();
             this.labelMessage = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
+            this.labelScore = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPaddle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBall)).BeginInit();
             this.SuspendLayout();
@@ -82,12 +83,26 @@
             this.labelStatus.Text = "labelStatus";
             this.labelStatus.Visible = false;
             // 
+            // labelScore
+            // 
+            this.labelScore.AutoSize = true;
+            this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.labelScore.ForeColor = System.Drawing.Color.Brown;
+            this.labelScore.Location = new System.Drawing.Point(750, 474);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size(142, 31);
+            this.labelScore.TabIndex = 4;
+            this.labelScore.Text = "labelScore";
+            this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelScore.Visible = false;
+            // 
             // GameplayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1664, 1012);
+            this.Controls.Add(this.labelScore);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.pictureBoxBall);
@@ -111,5 +126,6 @@
         private System.Windows.Forms.PictureBox pictureBoxBall;
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Label labelScore;
     }
 }

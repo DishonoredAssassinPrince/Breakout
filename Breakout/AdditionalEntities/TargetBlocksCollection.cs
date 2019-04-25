@@ -5,6 +5,9 @@
     using System.Collections.Generic;
     using System.Windows.Forms;
 
+    /// <summary>
+    /// Class defining a collection of target blocks.
+    /// </summary>
     public class TargetBlocksCollection : ArrayList
     {
         public TargetBlocksCollection(IList<Control> targetBlockViews)
@@ -16,6 +19,8 @@
 
         public event EventHandler BallSpeedToIncrease;
         public event EndGameEventHandler EndGame;
+
+        public int DestroyedBlocks => this.Count - CountBlocks();
 
         public void Destroy(object sender, TargetBlockArgs targetBlockArgs)
         {
@@ -30,7 +35,7 @@
             //If there are no more blocks -> Stop game
             if (countOfBlocks == 0)
             {
-                EndGame(this, new EndGameArgs(true));
+                EndGame(this, new EndGameArgs(true, DestroyedBlocks));
             }
             //////if the destroyed block is a multiple of 5, increase speed of ball
             else if (countOfBlocks % 5 == 0)

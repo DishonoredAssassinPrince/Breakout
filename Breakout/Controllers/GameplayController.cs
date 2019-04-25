@@ -75,7 +75,7 @@
 
         private void MoveBall()
         {
-            this.ballModel.MoveBall();
+            this.ballModel.MoveBall(targetBlocks);
             this.ballModel.CheckForBlockCollision(paddleModel);
 
             for (int i = 0; i < targetBlocks.Count; i++)
