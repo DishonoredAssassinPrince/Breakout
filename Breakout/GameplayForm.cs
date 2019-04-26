@@ -13,6 +13,7 @@
     public partial class GameplayForm : Form
     {
         private IGameplayController gameplayController;
+        private bool loopIsRunning;
 
         public GameplayForm()
         {
@@ -37,6 +38,7 @@
                 this.pictureBoxBall, targetBlocksCollection, messageHandler);
 
             Application.Idle += RunLoop;
+            loopIsRunning = true;
         }
 
         private void SetMessageLocations()
@@ -118,6 +120,7 @@
         public void OnEndGame(object sender, EventArgs e)
         {
             Application.Idle -= RunLoop;
+            loopIsRunning = true;
         }
 
         public void RunLoop(object sender, EventArgs e)
@@ -173,6 +176,54 @@
         private void GameplayForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void GameplayForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+            {
+                if (loopIsRunning)
+                {
+                    Application.Idle -= RunLoop;
+                    loopIsRunning = false;
+
+                    this.buttonExitDesktop.Visible = true;
+                    this.buttonRestart.Visible = true;
+                    this.buttonExitMenu.Visible = true;
+                    this.labelPause.Visible = true;
+                }
+                else
+                {
+                    this.labelPause.Visible = false;
+                    this.buttonRestart.Visible = false;
+                    this.buttonExitMenu.Visible = false;
+                    this.buttonExitDesktop.Visible = false;
+
+                    loopIsRunning = true;
+                    Application.Idle += RunLoop;
+                }
+            }
+        }
+
+        private void buttonExitMenu_Click(object sender, EventArgs e)
+        {
+            Application.Idle -= RunLoop;
+            loopIsRunning = false;
+            this.Hide();
+            StartGameForm startGameForm = new StartGameForm();
+            startGameForm.Show();
+        }
+
+        private void buttonExitDesktop_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonRestart_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GameplayForm startGameForm = new GameplayForm();
+            startGameForm.Show();
         }
     }
 }
