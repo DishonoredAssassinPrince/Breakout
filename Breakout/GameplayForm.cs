@@ -212,6 +212,7 @@
             this.Hide();
             StartGameForm startGameForm = new StartGameForm();
             startGameForm.Show();
+            this.Dispose();
         }
 
         private void buttonExitDesktop_Click(object sender, EventArgs e)
@@ -224,6 +225,7 @@
             this.Hide();
             GameplayForm startGameForm = new GameplayForm();
             startGameForm.Show();
+            this.Dispose();
         }
     }
 }
